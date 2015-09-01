@@ -14,7 +14,7 @@ private let pageControlMargin:CGFloat = 20
 private let defaultCurrentPageIndicatorTintColor = UIColor.orangeColor()
 private let defaultPageIndicatorTintColor = UIColor.blueColor()
 
-public protocol DDCycleScrollViewDelegate {
+public protocol DDCycleScrollViewDelegate :NSObjectProtocol{
     
     func didSelectCurrentPage(index : Int)
     func numberOfPages() -> Int
@@ -31,7 +31,7 @@ class DDCycleScrollView: UIView,UIScrollViewDelegate {
     var lastImageView = UIImageView()
     var nextImageView = UIImageView()
     var totalPages:Int!
-    var delegate : DDCycleScrollViewDelegate? {
+    weak var delegate : DDCycleScrollViewDelegate? {
        
         didSet{
             
