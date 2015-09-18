@@ -9,7 +9,9 @@
 import Foundation
 import UIKit
 
-private let defaultTimeInterval = 2.5
+/// if is 0,autoplay is not
+private let defaultTimeInterval : NSTimeInterval = 2.5
+
 private let pageControlMargin:CGFloat = 20
 private let defaultCurrentPageIndicatorTintColor = UIColor.orangeColor()
 private let defaultPageIndicatorTintColor = UIColor.blueColor()
@@ -89,8 +91,9 @@ class DDCycleScrollView: UIView,UIScrollViewDelegate {
 
         scrollView.setContentOffset(CGPointMake(self.frame.size.width, 0), animated: false)
         
-        self.timer = NSTimer.scheduledTimerWithTimeInterval(defaultTimeInterval, target: self, selector: "timerAction", userInfo: nil, repeats: true)
-        
+        if defaultTimeInterval != 0 {
+            self.timer = NSTimer.scheduledTimerWithTimeInterval(defaultTimeInterval, target: self, selector: "timerAction", userInfo: nil, repeats: true)
+        }
     }
     func timerAction(){
         
@@ -147,8 +150,10 @@ class DDCycleScrollView: UIView,UIScrollViewDelegate {
     */
     func scrollViewWillBeginDragging(scrollView: UIScrollView) {
         
-        timer?.invalidate()
-        timer = nil
+        if defaultTimeInterval != 0 {
+            timer?.invalidate()
+            timer = nil
+        }
     }
     func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         if !decelerate {
@@ -166,7 +171,7 @@ class DDCycleScrollView: UIView,UIScrollViewDelegate {
         }
         self.setScrollViewOfImage()
         scrollView.setContentOffset(CGPointMake(self.frame.size.width, 0), animated: false)
-        if timer == nil {
+        if timer == nil && defaultTimeInterval != 0 {
             self.timer = NSTimer.scheduledTimerWithTimeInterval(defaultTimeInterval, target: self, selector: "timerAction", userInfo: nil, repeats: true)
         }
     }
