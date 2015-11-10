@@ -37,7 +37,10 @@ class DDCycleScrollView: UIView,UIScrollViewDelegate {
        
         didSet{
             
-            totalPages = delegate?.numberOfPages()
+            if let pages = delegate?.numberOfPages(){
+                totalPages = pages
+            }
+            
             scrollView.scrollEnabled = !(totalPages == 1)
             setScrollViewOfImage()
             
@@ -100,12 +103,14 @@ class DDCycleScrollView: UIView,UIScrollViewDelegate {
         scrollView.setContentOffset(CGPointMake(self.frame.size.width*2, 0), animated: true)
     }
     
-    private func setImageViewWithIndex(#index: Int,imageView: UIImageView!){
+    private func setImageViewWithIndex(index index: Int,imageView: UIImageView!){
+        
+        assert(imageView != nil, "对象不能为空")
         
         imageView.frame = CGRectMake(self.frame.size.width * CGFloat(index), 0, self.frame.size.width, self.frame.size.height)
         imageView.userInteractionEnabled = true
-        imageView.contentMode = UIViewContentMode.ScaleAspectFill
-        imageView.clipsToBounds = true
+        imageView.contentMode = .ScaleAspectFill
+        
         scrollView.addSubview(imageView)
         
         if imageView == self.currentImageView {
@@ -122,16 +127,22 @@ class DDCycleScrollView: UIView,UIScrollViewDelegate {
     }
    private func setScrollViewOfImage(){
     
-    
-        currentImageView.image = UIImage(named: (delegate?.currentPageViewIndex(currentPageIndex))!)
-    
-        lastImageView.image = UIImage(named: (delegate?.currentPageViewIndex(getLastImageIndex(currentPageIndex)))!)
+        if let currentStr = delegate?.currentPageViewIndex(currentPageIndex) {
             
-        nextImageView.image = UIImage(named:( delegate?.currentPageViewIndex(getNextImageIndex(currentPageIndex)))!)
+            currentImageView.image = UIImage(named: currentStr)
+        }
+        if let lastStr = delegate?.currentPageViewIndex(getLastImageIndex(currentPageIndex)) {
+            
+            lastImageView.image = UIImage(named: lastStr)
+        }
+        if let nextStr = delegate?.currentPageViewIndex(getNextImageIndex(currentPageIndex)) {
+            
+            nextImageView.image = UIImage(named: nextStr)
+        }
     
     }
     private func getLastImageIndex(currentImageIndex: Int) -> Int{
-        var tempIndex = currentImageIndex - 1
+        let tempIndex = currentImageIndex - 1
         if tempIndex == -1 {
             return totalPages - 1
         }else{
@@ -141,7 +152,7 @@ class DDCycleScrollView: UIView,UIScrollViewDelegate {
     
     private func getNextImageIndex(currentImageIndex: Int) -> Int
     {
-        var tempIndex = currentImageIndex + 1
+        let tempIndex = currentImageIndex + 1
         return tempIndex < totalPages ? tempIndex : 0
     }
     
@@ -163,7 +174,7 @@ class DDCycleScrollView: UIView,UIScrollViewDelegate {
     
     func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
         
-        var offset = scrollView.contentOffset.x
+        let offset = scrollView.contentOffset.x
         if offset == 0 {
             self.currentPageIndex = self.getLastImageIndex(self.currentPageIndex)
         }else if offset == self.frame.size.width * 2 {

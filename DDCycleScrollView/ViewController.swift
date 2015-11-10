@@ -17,12 +17,13 @@ class ViewController: UIViewController,DDCycleScrollViewDelegate {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.lightGrayColor()
     
-        var cycleScrollView = DDCycleScrollView(frame: CGRectMake((view.frame.width - 250)/2, 64, 250, 300))
-        cycleScrollView.backgroundColor = UIColor.blueColor()
+        let cycleScrollView = DDCycleScrollView(frame: CGRectMake((view.frame.width - 250)/2, 64, 250, 300))
+        cycleScrollView.backgroundColor = UIColor.clearColor()
         cycleScrollView.delegate = self
         view.addSubview(cycleScrollView)
         
     }
+    /** DDCycleScrollViewDelegate*/
     func numberOfPages() -> Int {
         
         return imageArray.count;
@@ -33,7 +34,7 @@ class ViewController: UIViewController,DDCycleScrollViewDelegate {
     }
     func didSelectCurrentPage(index: Int) {
         
-        println("\(index)")
+        print("\(index)")
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

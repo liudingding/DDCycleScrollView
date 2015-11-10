@@ -171,6 +171,7 @@
 		89F60AE21B942ABB003624AD /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0710;
 				LastUpgradeCheck = 0640;
 				ORGANIZATIONNAME = kongxc;
 				TargetAttributes = {
@@ -431,6 +432,7 @@
 				89F60B0B1B942ABB003624AD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		89F60B0C1B942ABB003624AD /* Build configuration list for PBXNativeTarget "DDCycleScrollViewTests" */ = {
 			isa = XCConfigurationList;
@@ -439,6 +441,7 @@
 				89F60B0E1B942ABB003624AD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
